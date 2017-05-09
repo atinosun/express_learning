@@ -27,7 +27,8 @@ coverage
 build/Release
 
 # Dependency directories
-node_modules
+goods_management_system/node_modules
+restful_api/node_modules
 jspm_packages
 
 # Optional npm cache directory
