@@ -1,0 +1,26 @@
+{
+  "name": "restful_api",
+  "version": "1.0.0",
+  "description": "express+mongodb RESTful API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "atinosun",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "config": "^1.26.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.8"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atinosun/express_learning.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atinosun/express_learning/issues"
+  },
+  "homepage": "https://github.com/atinosun/express_learning#readme"
+}
