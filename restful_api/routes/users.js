@@ -4,9 +4,9 @@
  * created_date 2017-05-09
  */
 var express = require('express');
-var router = express.Router();
-var config = require('config');
 var usersController = require('../controllers/users');
+
+var router = express.Router();
 
 var result = function (req, res, next) {
     usersController.add(req, res, next);
@@ -14,8 +14,8 @@ var result = function (req, res, next) {
 };
 
 router.route('/users')
-    .post(function (req,res) {
-        usersController.add(req,res)
+    .post(function (req, res) {
+        usersController.add(req, res)
     })
     .put(result)
     .patch(result)

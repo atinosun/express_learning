@@ -7,7 +7,6 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var server = require('http').createServer(app);
-var apiRouter = express.Router();
 var config = require('config');
 var routesPath = './routes/';
 var usersRouter = require(routesPath + 'users');
@@ -18,15 +17,16 @@ var dimensionalityRouter = require(routesPath + 'dimensionality');
 var positionsRouter = require(routesPath + 'positions');
 var actiontypesRouter = require(routesPath + 'actiontypes');
 var actionsRouter = require(routesPath + 'actions');
-var mongooese = require('mongoose');
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+var apiRouter = express.Router();
 var mongoConfig = config.get('db.mongodb');
 var mongoUrl = 'mongodb://' + mongoConfig.host + ":" + mongoConfig.port + "/" + mongoConfig.database;
 if (mongoConfig.username && mongoConfig.password) {
     mongoUrl = 'mongodb://' + mongoConfig.username + ":" + mongoConfig.password + "@" + mongoConfig.host
         + ":" + mongoConfig.port + "/" + mongoConfig.database;
 }
-var db = mongooese.connect(mongoUrl);
-
+var db = mongoose.connect(mongoUrl);
 db.connection.on("error", function (error) {
     console.log("数据库连接失败：" + error);
 });
