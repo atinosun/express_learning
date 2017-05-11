@@ -8,18 +8,26 @@ var usersController = require('../controllers/users');
 
 var router = express.Router();
 
-var result = function (req, res, next) {
-    usersController.add(req, res, next);
+var result = function (req, res) {
     res.send(req.method + req.originalUrl + '请求成功!');
 };
 
 router.route('/users')
     .post(function (req, res) {
-        usersController.add(req, res)
+        usersController.create(req, res);
     })
-    .put(result)
-    .patch(result)
-    .get(result);
+    .put(function (req, res) {
+        usersController.update(req, res);
+    })
+    .patch(function (req, res) {
+        usersController.update(req, res);
+    })
+    .delete(function (req, res) {
+        usersController.delete(req, res);
+    })
+    .get(function (req, res) {
+        usersController.inquire(req, res);
+    });
 
 
 module.exports = router;

@@ -15,13 +15,31 @@ var userSchema = new schema({
 }, {
     versionKey: false
 });
-var users = mongoose.model('users', userSchema);
-var usersModel = {};
-usersModel.add = function (req) {
-    var userInfo = req.body;
-    userInfo = new users(userInfo);
+var usersModel = mongoose.model('users', userSchema);
+var users = {};
+users.create = function (req) {
+    let userInfo = req.body;
+    userInfo = new usersModel(userInfo);
     return userInfo.save();
 };
 
+users.update = function (req) {
+    return usersModel.update(
+        {"username": req.query.username},
+        req.body)
+        .exec();
+}
 
-module.exports = usersModel;
+users.inquire = function (req) {
+    return usersModel.find(
+        {"username": req.query.username},
+        {
+            "username": true,
+            "mids": true,
+            "_id": false
+        }).exec();
+}
+users.delete = function (req) {
+    return usersModel.remove({"username": req.query.username});
+}
+module.exports = users;
