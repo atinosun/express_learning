@@ -11,15 +11,15 @@ var schema = mongoose.Schema;
 var userSchema = new schema({
     username: {type: String, unique: true, required: true},
     password: {type: String, required: true},
-    mids: {type: [], required: true}
+    mids: {type: [String], required: true}
 }, {
     versionKey: false
 });
 var usersModel = mongoose.model('users', userSchema);
 var users = {};
+
 users.create = function (req) {
-    let userInfo = req.body;
-    userInfo = new usersModel(userInfo);
+    let userInfo = new usersModel(req.body);
     return userInfo.save();
 };
 
@@ -28,7 +28,7 @@ users.update = function (req) {
         {"username": req.query.username},
         req.body)
         .exec();
-}
+};
 
 users.inquire = function (req) {
     return usersModel.find(
@@ -38,8 +38,10 @@ users.inquire = function (req) {
             "mids": true,
             "_id": false
         }).exec();
-}
+};
+
 users.delete = function (req) {
     return usersModel.remove({"username": req.query.username});
-}
+};
+
 module.exports = users;

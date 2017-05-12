@@ -12,9 +12,11 @@ var usersController = {};
 usersController.create = function (req, res) {
     var hasSaved = usersModel.create(req);
     hasSaved.then(function (result) {
-        // to do
-        //应该去掉密码字段，只返回给请求方username和mids
-        res.send("用户录入成功：" + result);
+        res.send(200, {
+            "msg": "用户数据录入成功", "data": {
+                "username": result.username, "mids": result.mids
+            }
+        });
     }).catch(function (err) {
         //to do
         //不能直接这么抛出异常信息，需要对异常信息进行处理。否则数据库的结构会暴露
@@ -32,7 +34,8 @@ usersController.create = function (req, res) {
         }
         res.send("用户录入失败：" + errorMsg);
     })
-};
+}
+;
 
 //PUT&&PATCH
 //to do
@@ -92,7 +95,7 @@ usersController.delete = function (req, res) {
         res.send("用户数据删除失败，请确认用户是否存在!");
     }).catch(function (err) {
         //to do
-            //目前报错只出现在username未出现的时候，因为上面已经拦截错误，所以不需要输出，下一步考虑是否有其他错误形式
+        //目前报错只出现在username未出现的时候，因为上面已经拦截错误，所以不需要输出，下一步考虑是否有其他错误形式
         // console.log(err);
     });
 };
